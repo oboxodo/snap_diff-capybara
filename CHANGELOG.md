@@ -392,6 +392,12 @@ One removal 2.0 cannot warn about, written down instead: the legacy `LOADED_DRIV
   carried the `diff_mask` image into the error text (`"diff_mask":"#<Vips::Image:0x…>"`,
   or a `{"ptr":{}…}` struct depending on the driver); it is excluded now
 - Reporter failure warnings use one brand and name the failing reporter class
+- **A screenshot that changed size is in the HTML report.** It was counted in the
+  summary line but left out of `snap_diff_report.html` (and a run whose only failures
+  were size changes wrote no report at all): the null comparison result is frozen, and
+  reading its `area_size` raised `FrozenError`, which the reporter swallowed unless
+  `DEBUG` was set. The entry shows the baseline, the new capture and both sizes, and
+  says why it has no heatmap or annotations
 
 ### Known limitations
 - **One process per worker** (`parallel_tests`, RSpec, CI sharding) still writes one
